@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+ http://www.springframework.org/schema/context
+ http://www.springframework.org/schema/context/spring-context-3.0.xsd ">
+
+	<context:component-scan base-package="com.lee.arphoto" />
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${jdbc.driverClass}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.user}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="minPoolSize" value="${minPoolSize}" />
+		<property name="initialPoolSize" value="${initialPoolSize}" />
+		<property name="maxPoolSize" value="${maxPoolSize}" />
+		<property name="acquireIncrement" value="${acquireIncrement}" />
+		<property name="maxStatementsPerConnection" value="${maxStatementsPerConnection}" />
+		<property name="maxStatements" value="${maxStatements}" />
+		<property name="testConnectionOnCheckin" value="${testConnectionOnCheckin}" />
+		<property name="automaticTestTable" value="${automaticTestTable}" />
+		<property name="idleConnectionTestPeriod" value="${idleConnectionTestPeriod}" />
+		<property name="testConnectionOnCheckout" value="${testConnectionOnCheckout}" />
+	</bean>
+
+	<!-- MyBatis needs the sqlSessionFactory Bean defined. -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- MyBatis Data Mapper scanning. Mappers need to be in this package or 
+		a subpackage of this. -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.lee.arphoto.dao" />
+	</bean>
+
+</beans>

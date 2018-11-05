@@ -1,0 +1,1 @@
+ALTER TABLE `albumunit` ADD COLUMN `offCard` TINYINT(1) NULL COMMENT '是否脱卡' AFTER `videoId`, ADD COLUMN `comment` TEXT(500) NULL AFTER `offCard`; 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+      	http://www.springframework.org/schema/context
+      	http://www.springframework.org/schema/context/spring-context.xsd
+      	http://www.springframework.org/schema/task
+      	http://www.springframework.org/schema/task/spring-task-3.0.xsd
+      	http://www.springframework.org/schema/mvc
+      	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+	<!-- 任务类路径 -->
+	<context:component-scan base-package="com.lee.arphoto.timer" />
+
+	<!-- 循环任务 -->
+	<!-- 每隔10分钟需要处理的任务 -->
+	<task:scheduled-tasks>
+		<task:scheduled ref="loopHandleDataTask" method="dealOneHourLoopData"
+			cron="0 */1 * * * ?" />
+	</task:scheduled-tasks>
+	<!-- 每隔3小时需要处理的任务 -->
+	<!-- <task:scheduled-tasks> <task:scheduled ref="loopHandleDataTask" method="dealThreeHourLoopData" 
+		cron="0 0 */3 * * ?"/> </task:scheduled-tasks> -->
+
+	<!-- 定点任务 -->
+	<!-- 每天20点处理相关数据 -->
+	<!-- <task:scheduled-tasks> <task:scheduled ref="fixedHandleDataTask" method="handleTwentyOclockData" 
+		cron="0 0 20 * * ?"/> </task:scheduled-tasks> -->
+	<!-- 每天5点处理相关数据 -->
+	<!-- <task:scheduled-tasks> <task:scheduled ref="fixedHandleDataTask" method="handleFiveOclockData" 
+		cron="0 1 5 * * ?"/> </task:scheduled-tasks> -->
+</beans>
